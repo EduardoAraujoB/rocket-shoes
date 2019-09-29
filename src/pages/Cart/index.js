@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
@@ -7,37 +8,34 @@ import {
 
 import { Container, ProductTable, Total } from './styles';
 
-export default function Cart() {
-  return (
-    <Container>
-      <ProductTable>
-        <thead>
-          <tr>
-            <th> </th>
-            <th>Produto</th>
-            <th>QTD</th>
-            <th>SUBTOTAL</th>
-            <th> </th>
-          </tr>
-        </thead>
-        <tbody>
+const Cart = ({ cart }) => (
+  <Container>
+    <ProductTable>
+      <thead>
+        <tr>
+          <th> </th>
+          <th>Produto</th>
+          <th>QTD</th>
+          <th>SUBTOTAL</th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        {cart.map(product => (
           <tr>
             <td>
-              <img
-                src="https://static.netshoes.com.br/produtos/tenis-nike-sb-check-solar-cnvs-masculino/56/D12-2759-256/D12-2759-256_zoom1.jpg"
-                alt="tenis"
-              />
+              <img src={product.image} alt={product.title} />
             </td>
             <td>
-              <strong>Tênis muito massa</strong>
-              <span>R$129,90</span>
+              <strong>{product.title}</strong>
+              <span>{product.priceFormated}</span>
             </td>
             <td>
               <div>
                 <button>
                   <MdRemoveCircleOutline size={20} color="#7159c1" />
                 </button>
-                <input type="number" readOnly value={1} />
+                <input type="number" readOnly value={product.ammount} />
                 <button>
                   <MdAddCircleOutline size={20} color="#7159c1" />
                 </button>
@@ -52,17 +50,23 @@ export default function Cart() {
               </button>
             </td>
           </tr>
-        </tbody>
-      </ProductTable>
+        ))}
+      </tbody>
+    </ProductTable>
 
-      <footer>
-        <button>Finalizar pedido</button>
+    <footer>
+      <button>Finalizar pedido</button>
 
-        <Total>
-          <span>TOTAL</span>
-          <strong>R$1920</strong>
-        </Total>
-      </footer>
-    </Container>
-  );
-}
+      <Total>
+        <span>TOTAL</span>
+        <strong>R$1920</strong>
+      </Total>
+    </footer>
+  </Container>
+);
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Cart);
