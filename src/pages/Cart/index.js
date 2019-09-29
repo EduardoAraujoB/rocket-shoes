@@ -8,7 +8,7 @@ import {
 
 import { Container, ProductTable, Total } from './styles';
 
-const Cart = ({ cart }) => (
+const Cart = ({ cart, dispatch }) => (
   <Container>
     <ProductTable>
       <thead>
@@ -45,7 +45,11 @@ const Cart = ({ cart }) => (
               <strong>R$258,80</strong>
             </td>
             <td>
-              <button>
+              <button
+                onClick={() =>
+                  dispatch({ type: 'REMOVE_FROM_CART', id: product.id })
+                }
+              >
                 <MdDelete size={20} color="#7159c1" />
               </button>
             </td>
