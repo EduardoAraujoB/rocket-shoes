@@ -13,13 +13,13 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 import { Container, ProductTable, Total } from './styles';
 
-const Cart = ({ cart, total, removeFromCart, updateAmount }) => {
+const Cart = ({ cart, total, removeFromCart, updateAmountRequest }) => {
   const increment = product => {
-    updateAmount(product.id, product.amount + 1);
+    updateAmountRequest(product.id, product.amount + 1);
   };
 
   const decrement = product => {
-    updateAmount(product.id, product.amount - 1);
+    updateAmountRequest(product.id, product.amount - 1);
   };
 
   return (
